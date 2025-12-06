@@ -1,0 +1,394 @@
+import React, { useState, useEffect } from 'react';
+import { ChevronRight, FileText, Users, Globe, Lock, Brain, Share2, Menu, X, ArrowUpRight, ShieldAlert, Ban } from 'lucide-react';
+
+const CCFWebsite = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [loginTarget, setLoginTarget] = useState('');
+
+  // Handle scroll for navbar styling
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleRestrictedClick = (target) => {
+    setLoginTarget(target);
+    setShowLoginModal(true);
+  };
+
+  const positions = [
+    {
+      title: "Cognitive Equity",
+      icon: <Globe className="w-5 h-5" />,
+      content: "As neural interface costs decrease, we track the socio-economic stratification of processing speeds. Access to enhancement technologies must not create a permanent divergent species class. We advocate for subsidized baseline augmentation credits."
+    },
+    {
+      title: "Nontraditional Selves",
+      icon: <Users className="w-5 h-5" />,
+      content: "Legal recognition for tulpas, daemon agents, and partitioned sub-personalities is overdue. We propose a framework for 'context-sensitive dignity protections' that acknowledges plural internal agents without destabilizing legacy identification systems."
+    },
+    {
+      title: "Memory Autonomy",
+      icon: <Brain className="w-5 h-5" />,
+      content: "The right to retain ownership of biological and cloud-stored engrams is fundamental. Our policy papers argue against 'Subscription-Based Recall' models currently being tested by major neural-link providers."
+    },
+    {
+      title: "Neural Privacy",
+      icon: <Lock className="w-5 h-5" />,
+      content: "Thought-state telemetry and subconscious impulse tracking must be regulated with greater strictness than genetic data. Pre-conscious ideation belongs to the thinker, regardless of the hosting architecture."
+    },
+    {
+      title: "Augmentation Safety",
+      icon: <ChevronRight className="w-5 h-5" />,
+      content: "Society must reconsider the strict 'therapeutic-first' regulatory model. We support carefully managed voluntary enhancement trials for healthy individuals, balancing innovation risk against the stagnation of biological limits."
+    },
+    {
+      title: "Cloud Governance",
+      icon: <Share2 className="w-5 h-5" />,
+      content: "Safeguards for offloaded processing are critical to prevent unilateral revocation of cognitive continuity. No entity should have the power to 'shut off' a portion of a citizen's active intellect due to terms-of-service violations."
+    }
+  ];
+
+  const papers = [
+    {
+      title: "On the Emerging Tension Between Thought Sovereignty and Neural Advertising Models",
+      author: "Dr. A. Thorne",
+      date: "October 2024",
+      type: "Policy Note"
+    },
+    {
+      title: "The Ethical Contours of Shared-Mind Architectures",
+      author: "Prof. E. Vance (NBCC Delegate)",
+      date: "September 2024",
+      type: "White Paper"
+    },
+    {
+      title: "Consensus Building in Multi-Agent Selves: A Legal Framework",
+      author: "J. H. Stollen",
+      date: "August 2024",
+      type: "Brief"
+    },
+    {
+      title: "The Case for Gradated Personhood in Synthetic Cognition",
+      author: "Research Collective 9",
+      date: "July 2024",
+      type: "Symposium Transcript"
+    }
+  ];
+
+  // Names are technically here but hidden in UI
+  const board = [
+    { name: "Dr. Aris Thorne", title: "Director of Synthetic Ethics" },
+    { name: "Prof. Elara Vance", title: "Rotating Delegate, Non-Biological Cognition Consortium" },
+    { name: "S. K. Holsch", title: "Senior Fellow, Memory Infrastructure" },
+    { name: "Your Persona", title: "Founding Supporter" }
+  ];
+
+  return (
+    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-slate-200 relative">
+      {/* Import Google Fonts */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+        
+        h1, h2, h3, h4, .serif {
+          font-family: 'Merriweather', serif;
+        }
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+        .blur-text {
+          color: transparent;
+          text-shadow: 0 0 8px rgba(0,0,0,0.5);
+          user-select: none;
+        }
+      `}} />
+
+      {/* Login Modal */}
+      {showLoginModal && (
+        <div className="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-md shadow-2xl border border-slate-200">
+            <div className="bg-slate-50 border-b border-slate-100 p-6 flex justify-between items-start">
+              <div>
+                <h3 className="serif text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <Lock size={16} /> Restricted Access
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 uppercase tracking-wider">Authentication Required</p>
+              </div>
+              <button onClick={() => setShowLoginModal(false)} className="text-slate-400 hover:text-slate-900">
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="p-8">
+              <div className="mb-6 p-4 bg-amber-50 border-l-2 border-amber-500 text-amber-800 text-xs leading-relaxed">
+                <span className="font-bold block mb-1">Clearance Level 4+ Required</span>
+                You are attempting to access <span className="font-semibold italic">{loginTarget}</span>. This material is classified under the Cognitive Security Act of 2028.
+              </div>
+
+              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                <div>
+                  <label className="block text-xs font-bold uppercase text-slate-500 mb-1">Node Identifier</label>
+                  <input type="text" className="w-full bg-slate-50 border border-slate-200 p-3 text-sm focus:outline-none focus:border-slate-900 transition-colors" placeholder="Ex: N-774-ALPHA" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase text-slate-500 mb-1">Private Key</label>
+                  <input type="password" className="w-full bg-slate-50 border border-slate-200 p-3 text-sm focus:outline-none focus:border-slate-900 transition-colors" placeholder="••••••••••••••" />
+                </div>
+                <button className="w-full bg-slate-900 text-white py-3 text-sm font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors mt-4">
+                  Authenticate
+                </button>
+              </form>
+            </div>
+
+            <div className="bg-slate-50 p-4 border-t border-slate-100 text-center">
+              <p className="text-[10px] text-slate-400">
+                Access requests for unconnected personnel must be routed through the Global Neural Alliance. <br/>
+                <span className="font-bold text-slate-500">New account creation is currently disabled.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Navigation */}
+      <nav className={`fixed w-full z-40 transition-all duration-300 border-b ${scrolled ? 'bg-white/95 backdrop-blur-sm border-slate-200 py-3' : 'bg-white border-transparent py-6'}`}>
+        <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-slate-900 flex items-center justify-center">
+              <span className="text-white serif font-bold text-lg">C</span>
+            </div>
+            <span className="text-slate-900 font-bold tracking-tight text-sm uppercase">Center for Cognitive Futures</span>
+          </div>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex gap-8 text-sm font-medium text-slate-500">
+            <a href="#mission" className="hover:text-slate-900 transition-colors">Mission</a>
+            <a href="#positions" className="hover:text-slate-900 transition-colors">Core Positions</a>
+            <a href="#research" className="hover:text-slate-900 transition-colors">Research</a>
+            <a href="#about" className="hover:text-slate-900 transition-colors">About</a>
+          </div>
+
+          {/* Mobile Toggle */}
+          <button className="md:hidden text-slate-900" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Nav Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-slate-200 py-6 px-6 shadow-xl">
+            <div className="flex flex-col gap-4 text-sm font-medium text-slate-600">
+              <a href="#mission" onClick={() => setIsMenuOpen(false)}>Mission</a>
+              <a href="#positions" onClick={() => setIsMenuOpen(false)}>Core Positions</a>
+              <a href="#research" onClick={() => setIsMenuOpen(false)}>Research</a>
+              <a href="#about" onClick={() => setIsMenuOpen(false)}>About</a>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section */}
+      <header className="pt-40 pb-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-semibold uppercase tracking-wider mb-6">
+            Est. 202X
+          </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 leading-tight mb-8">
+            Structuring the Ethics of the <br/><span className="italic">Post-Biological</span> Mind.
+          </h1>
+          <p className="text-lg md:text-xl text-slate-500 font-light max-w-2xl mx-auto leading-relaxed">
+            The CCF provides non-partisan analysis and regulatory guidance on the integration of synthetic consciousness, plural agency, and neural augmentation into civil society.
+          </p>
+        </div>
+      </header>
+
+      <div className="w-full h-px bg-slate-200 max-w-6xl mx-auto"></div>
+
+      {/* Mission Statement */}
+      <section id="mission" className="py-20 px-6 bg-slate-50">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-4">Our Mandate</h2>
+          <p className="serif text-2xl md:text-3xl text-slate-800 leading-relaxed">
+            "To advance the responsible integration of emerging forms of consciousness into society, including synthetic minds, distributed intelligences, plural internal agents, and biologically augmented humans."
+          </p>
+        </div>
+      </section>
+
+      {/* Core Positions Grid */}
+      <section id="positions" className="py-24 px-6 max-w-6xl mx-auto">
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <h2 className="text-3xl serif text-slate-900 mb-2">Core Positions</h2>
+            <p className="text-slate-500">Foundational pillars of our advocacy framework.</p>
+          </div>
+          <button 
+            onClick={() => handleRestrictedClick("Core Position Manifestos")}
+            className="hidden md:flex items-center gap-2 text-sm font-bold text-slate-900 border-b border-slate-900 pb-1 hover:opacity-70 transition-opacity"
+          >
+            View Full Manifestos <ArrowUpRight size={16} />
+          </button>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+          {positions.map((pos, idx) => (
+            <div key={idx} className="group cursor-default">
+              <div className="flex items-center gap-3 mb-4 text-slate-400 group-hover:text-slate-800 transition-colors">
+                {pos.icon}
+                <div className="h-px bg-slate-200 flex-grow group-hover:bg-slate-800 transition-colors"></div>
+              </div>
+              <h3 className="text-xl serif font-medium text-slate-900 mb-3">{pos.title}</h3>
+              <p className="text-slate-600 text-sm leading-relaxed text-justify">
+                {pos.content}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Publications / Policy Notes (PAYWALLED) */}
+      <section id="research" className="py-24 px-6 bg-slate-900 text-slate-100">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex justify-between items-end mb-12">
+            <h2 className="text-3xl serif border-l-4 border-slate-700 pl-6">Recent Policy Notes</h2>
+            <div className="flex items-center gap-2 text-xs text-amber-500 uppercase tracking-widest font-bold">
+              <Lock size={12} /> Subscriber Access Only
+            </div>
+          </div>
+          
+          <div className="space-y-8">
+            {papers.map((paper, idx) => (
+              <div 
+                key={idx} 
+                onClick={() => handleRestrictedClick(`Document: ${paper.title}`)}
+                className="group flex flex-col md:flex-row gap-4 md:items-baseline border-b border-slate-800 pb-8 hover:bg-slate-800 transition-colors p-4 -mx-4 rounded-lg cursor-pointer relative overflow-hidden"
+              >
+                <div className="w-32 flex-shrink-0 text-xs font-bold text-slate-400 uppercase tracking-wider group-hover:text-amber-500 transition-colors">
+                  {paper.date}
+                </div>
+                <div className="flex-grow">
+                  <div className="text-xs text-slate-400 mb-1 uppercase tracking-wide">{paper.type}</div>
+                  <h3 className="text-xl serif font-light text-white mb-2 group-hover:text-amber-100 transition-colors">{paper.title}</h3>
+                  <p className="text-sm text-slate-400">By {paper.author}</p>
+                </div>
+                <div className="flex-shrink-0 self-center md:self-start mt-4 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Lock className="text-amber-500 w-5 h-5" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <button 
+              onClick={() => handleRestrictedClick("Full Research Archive")}
+              className="px-8 py-3 border border-slate-600 text-sm hover:bg-slate-800 transition-colors uppercase tracking-wider"
+            >
+              Access Research Archive
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* About / Board (REDACTED) */}
+      <section id="about" className="py-24 px-6 max-w-5xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl serif text-slate-900 mb-4">Leadership & Board</h2>
+          <p className="text-slate-500 max-w-2xl mx-auto">
+            Our board is comprised of leading academics in bio-ethics, computational law, and post-human sociology.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {board.map((member, idx) => (
+            <div key={idx} className="text-center group relative">
+              <div className="w-24 h-24 bg-slate-100 rounded-full mx-auto mb-4 overflow-hidden relative grayscale opacity-70 flex items-center justify-center">
+                 {/* Silhouette Placeholder */}
+                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-16 bg-slate-300 rounded-t-full"></div>
+                 <div className="absolute top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-slate-300 rounded-full"></div>
+                 
+                 {/* Redaction Overlay */}
+                 <div className="absolute inset-0 bg-slate-900/10 backdrop-blur-[2px] flex items-center justify-center">
+                    <Ban className="text-slate-800 opacity-20 w-8 h-8" />
+                 </div>
+              </div>
+              
+              {/* Redacted Text */}
+              <div className="relative">
+                <h4 className="font-bold text-slate-900 text-sm mb-1 blur-[3px] select-none opacity-50">Redacted Name</h4>
+                <p className="text-xs text-slate-500 leading-tight blur-[2px] select-none opacity-50">Redacted Title Information</p>
+                
+                {/* Overlay Badge */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="bg-slate-100 border border-slate-300 px-2 py-0.5 text-[10px] font-bold uppercase text-slate-500 tracking-wider">
+                    Classified
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+            <p className="text-xs text-slate-400 italic">
+                * Board identities are shielded under the Cognitive Safety Protocols (CSP-29).
+            </p>
+        </div>
+      </section>
+
+      {/* Press Statements */}
+      <section className="py-16 px-6 border-t border-slate-200">
+        <div className="max-w-4xl mx-auto">
+           <h3 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-8">Latest Statements</h3>
+           <div className="grid md:grid-cols-2 gap-8">
+             <div className="bg-slate-50 p-6 border-l-2 border-slate-300 hover:border-slate-800 transition-colors cursor-pointer" onClick={() => handleRestrictedClick("Public Statement: Neural Consent")}>
+               <p className="text-xs text-slate-400 mb-2">Nov 12, 2024</p>
+               <p className="serif text-slate-800 italic">"CCF Recommendation on Neural Consent Standards for Brain-Linked Algorithms"</p>
+             </div>
+             <div className="bg-slate-50 p-6 border-l-2 border-slate-300 hover:border-slate-800 transition-colors cursor-pointer" onClick={() => handleRestrictedClick("Public Statement: Personhood")}>
+               <p className="text-xs text-slate-400 mb-2">Oct 30, 2024</p>
+               <p className="serif text-slate-800 italic">"CCF Responds to Mischaracterizations of Its Position on Internal Agent Personhood"</p>
+             </div>
+           </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-slate-200 py-12 px-6">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+          
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-6 h-6 bg-slate-900 flex items-center justify-center">
+                <span className="text-white serif font-bold text-xs">C</span>
+              </div>
+              <span className="text-slate-900 font-bold tracking-tight text-xs uppercase">Center for Cognitive Futures</span>
+            </div>
+            <p className="text-xs text-slate-400 max-w-xs">
+              © 2024 Center for Cognitive Futures. All rights reserved.<br/>
+              5500 Massachusetts Ave NW, Washington, DC (Virtual Office)
+            </p>
+          </div>
+
+          <div className="flex gap-8 text-xs font-medium text-slate-600">
+            <button onClick={() => handleRestrictedClick("Contact Form")} className="hover:text-slate-900">Contact</button>
+            <button onClick={() => handleRestrictedClick("Donation Portal")} className="hover:text-slate-900">Support Our Research</button>
+            <a href="#" className="hover:text-slate-900 flex items-center gap-1">
+               Documentation <ArrowUpRight size={10} />
+            </a>
+          </div>
+
+        </div>
+        
+        <div className="max-w-6xl mx-auto mt-12 pt-8 border-t border-slate-100 text-[10px] text-slate-300 text-center md:text-left">
+          The CCF is a 501(c)(3) research organization dedicated to the future of mind. Opinions expressed do not necessarily reflect the views of the Global Neural Alliance.
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default CCFWebsite;
